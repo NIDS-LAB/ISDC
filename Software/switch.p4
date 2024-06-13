@@ -385,7 +385,6 @@ control MyIngress(inout headers hdr,
                 hash_check_register.read(meta.hval_reg, (bit<32>)meta.Hhindex);
                 if(meta.cnt_==0 && (hdr.measure.tag==1)){
                 first_count();
-                tf.count(0);
                 meta.flowid=1;
                 meta.mf=1;
 
@@ -395,7 +394,6 @@ control MyIngress(inout headers hdr,
             }
             else if(meta.hval == meta.hval_reg){
                         count1_it(); 
-                        tf.count(1);
                         hdr.measure.tag=3;
                         meta.heavy=1;
                         Hflow_off.read(meta.flow_offset, (bit<32>)meta.Hhindex);
