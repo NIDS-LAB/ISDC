@@ -18,7 +18,7 @@ Federated Learning is a machine learning approach that enables training models c
   - `dataset/`: Data related to DoS/DDoS attacks extracted from [here](https://turbina.gsd.inesc-id.pt/resources/mpt_detection/)
   - `FL.ipynb`: Code related to model training and testing.
     
-## Requirements
+## Setup 
 
 To run the code, you need the following packages installed:
 
