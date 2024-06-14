@@ -9,6 +9,8 @@
 - [p4c v1.2.3.9](https://github.com/p4lang/p4c)
 - [ptf](https://github.com/p4lang/ptf)
 - [Flower v1.6.0](https://flower.ai/)
+- [TcpReplay v4.3.4](https://tcpreplay.appneta.com/)
+- [Python3.8-3.10](https://www.python.org/downloads/)
 
 ## Traffic Dataset
 - Attack traffic captures of covert channel available [here](https://turbina.gsd.inesc-id.pt/resources/mpt_detection/)
