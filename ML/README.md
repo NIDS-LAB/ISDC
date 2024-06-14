@@ -22,7 +22,7 @@ Federated Learning is a machine learning approach that enables training models c
 
 To run the code, you need the following packages installed:
 
-- Flower (`flwr`) ([Flower v1.6.0](https://flower.ai/))
+- Flower (`flwr`) ([Flower v1.6.0](https://github.com/adap/flower))
 - TensorFlow (`tensorflow`)
 - NumPy (`numpy`)
 - Pandas (`pandas`)
