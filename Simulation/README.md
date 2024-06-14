@@ -29,7 +29,7 @@ First, we need to install the P4 Mininet environment. The simplest and quickest 
    - Copy the ASN topology, our smallest topology, to the same directory.
 
 2. **Compile Code:** 
-   - In the Software directory, type `make` to compile the code. This will bring you to the Mininet environment. You can time `nodes` or links `links` to get information of the topology.
+   - In the Simulation directory, type `make` to compile the code. This will bring you to the Mininet environment. You can time `nodes` or links `links` to get information of the topology.
 
 3. **Launch the Controller:** 
    - To launch the control plane of the switch and attach it to the switches’ data plane, type:
