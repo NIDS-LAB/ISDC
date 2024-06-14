@@ -12,8 +12,6 @@ The collection of network data poses a significant challenge for machine/deep le
 This repository includes the following directories: 
 
 * [Hardware/](https://github.com/NIDS-LAB/ISDC/tree/main/Hardware) contains source code for Barefoot Tofino 1 (Wedge 100BF-32X) switch.
-* [Software/](https://github.com/NIDS-LAB/ISDC/tree/main/Software) contains the source code for software (BMV2) switch implementation, along with the necessary code for running P4 simulations using Mininet.
+* [Simulation/](https://github.com/NIDS-LAB/ISDC/tree/main/Simulation) contains the source code for software (BMV2) switch implementation, along with the necessary code for running P4 simulations using Mininet.
 * [ML/](https://github.com/NIDS-LAB/ISDC/tree/main/ML) contains the source code and dataset for training both local and aggregated model using FedAvg algorithm.
-* [topologies/](https://github.com/NIDS-LAB/ISDC/tree/main/topologies) contains information on the three topologies for running the simulation.
-* [example/](https://github.com/NIDS-LAB/ISDC/tree/main/example) contains preprocessed PCAP files along with the necessary scripts for running the simulation.
 
