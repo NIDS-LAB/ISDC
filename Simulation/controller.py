@@ -579,7 +579,7 @@ def storage(i, in_, h_list, cnt_, bcnt_, type_, swid_, f_dist, BIN):
 
     s=thrift(9090+i)
     X=0
-    t_queue=[Queue(), Queue(), Queue(), Queue(), Queue()]
+    t_queue=[Queue(), Queue(), Queue(), Queue()]
     thread=[]
     for j in range(len(t_queue)):
         tu=threading.Thread(target=get_data, args=(i, f_dist, BIN, t_queue[j]))
@@ -605,7 +605,7 @@ def storage(i, in_, h_list, cnt_, bcnt_, type_, swid_, f_dist, BIN):
             type_.append(2)
             swid_.append(i)
             f_dist.append([])
-            t_queue[X%5].put([len(f_dist)-1, p_idx, l[4]])
+            t_queue[X%4].put([len(f_dist)-1, p_idx, l[4]])
             X+=1
         else:
             # uknown cases
@@ -619,7 +619,7 @@ def garbage_collector(i, in_, flow_rep, flow_loc):
 
     f_track={}
     f_q=[]
-    TIMEOUT=int(30)
+    TIMEOUT=int(15)
     P=0
     while True:
         l=None
@@ -742,7 +742,7 @@ def controller(i, p4info_helper, sw, context, h_list, cnt_, bcnt_, type_, swid_,
     DIGEST_ID = 386821644 # digest id in the p4info file 
     BIN=94 
     SIZE=9287*BIN
-    QUEUE_S=1024
+    QUEUE_S=2048
     u_tuple.append(0)
     tuple5={}
     s=thrift(9090+i)
@@ -785,7 +785,7 @@ def controller(i, p4info_helper, sw, context, h_list, cnt_, bcnt_, type_, swid_,
     tt.start()
 
     while True:
-        digest_list=dgin.sniff(timeout=3)
+        digest_list=dgin.sniff(timeout=1)
         for msg in digest_list:
             id_report, proto, src, dst, sport, dport, hval, evic, mf, hval_, cnt, bcnt, pull_idx, h_idx, n_idx=extract_digest(msg.digest)
             if(id_report==1):
@@ -807,6 +807,104 @@ def load_file(fname, num):
     f.close()
 
     return poly
+
+def save_info(h, cnt_, bcnt_, type_, swid, num, sw_num, dist, pren):
+
+    fname=["tst", "evic", "exp"]
+    hash_res=[]
+    cnt=[]
+    bcnt=[]
+    dist_=[]
+    for i in range(num):
+        hash_res.append([])
+        cnt.append([])
+        dist_.append([])
+        for j in range(sw_num):
+            hash_res[i].append([])
+            cnt[i].append([])
+            dist_[i].append([])
+
+    i=0
+    j=0
+    for _ in range(len(type_)):
+        j=0
+        l=len(type_[i])
+        for _ in range(l):
+            item=type_[i][j]
+            idx=j
+            if(item==3):
+                j+=1
+                continue
+            hash_res[item][i].append(h[i][idx])
+            cnt[item][i].append(cnt_[i][idx])
+            dist_[item][i].append(dist[i][idx])
+            h[i].pop(idx)
+            cnt_[i].pop(idx)
+            type_[i].pop(idx)
+            swid[i].pop(idx)
+            dist[i].pop(idx)
+        i+=1
+
+    for ij in range(num):
+        fh="flowh_"+fname[ij]+".txt"
+        fcnt="flowc_"+fname[ij]+".txt"
+        fdist="flowd_" +fname[ij]+".txt"
+        with open(pren+fh, "w") as f:
+            for i in range(sw_num):
+                f.write("%d:\n" % i)
+                tmp=[str(j) for j in hash_res[ij][i]]
+                f.write(' '.join(tmp))
+                f.write("\n\n")
+        f.close()
+        with open(pren+fcnt, "w") as f:
+            for i in range(sw_num):
+                f.write("%d:\n" % i)
+                tmp=[str(j) for j in cnt[ij][i]]
+                f.write(' '.join(tmp))
+                f.write("\n\n")
+        f.close()
+        with open(pren+fdist, "w") as f:
+            for i in range(sw_num):
+                f.write("%d:\n" % i)
+                for k in range(len(dist_[ij][i])):
+                    tmp=[str(j) for j in dist_[ij][i][k]]
+                    f.write(' '.join(tmp))
+                    f.write("\n")
+        f.close()
+
+def remove_dup(hash_res, cnt, bcnt, type_, swid, dist):
+    for i, v in enumerate(hash_res):
+        seen=set()
+        uniq_h=[]
+        u_cnt=[]
+        u_bcnt=[]
+        u_type=[]
+        u_swid=[]
+        u_dist=[]
+        for idx, item in enumerate(v):
+            if item in seen:
+                x=uniq_h.index(item)
+                u_cnt[x]=u_cnt[x]+cnt[i][idx]
+                u_dist[x]=[a_ + b_ for a_,b_ in zip(u_dist[x], dist[i][idx])]
+                continue
+            if item not in seen:
+                seen.add(item)
+                uniq_h.append(item)
+                u_cnt.append(cnt[i][idx])
+                u_dist.append(dist[i][idx])
+                if(len(type_)!=0):
+                    u_type.append(type_[i][idx])
+                u_swid.append(swid[i][idx])
+
+        if len(hash_res[i])!=len(uniq_h):
+            print(len(hash_res[i]), len(uniq_h))
+        hash_res[i]=uniq_h
+        cnt[i]=u_cnt
+        dist[i]=u_dist
+        if(len(type_)!=0):
+            type_[i]=u_type
+        swid[i]=u_swid
+
 
 def main(p4info_file_path, bmv2_file_path, sw_num):
     # Instantiate a P4Runtime helper from the p4info file
@@ -868,8 +966,100 @@ def main(p4info_file_path, bmv2_file_path, sw_num):
 
         for t in threads:
             t.start()
-        for t in threads:
-            t.join()
+            #for t in threads:
+            #t.join()
+        while True:
+            in_=input("Command:").split()
+
+            if(len(in_)==0):
+                continue
+            if(in_[0]=="Exit"):
+                for t in threads:
+                    t.join()
+            if(in_[0]=="Clc"):
+                resume_event.set()
+                pause_event.clear()
+                resume_event.clear()
+                print("Resumed")
+            if(in_[0]=="Snap"):
+                fname_="./result/"   
+                if not os.path.exists(fname_):
+                    os.makedirs(fname_)
+                    fname__="./result/Report/"   
+                    if not os.path.exists(fname__):
+                        os.makedirs(fname__)
+                    print(f"Directory '{fname_}' created.")
+
+                pause_event.set()
+                time.sleep(10)
+
+                hash_res=copy.deepcopy(hash_res_)
+                cnt=copy.deepcopy(cnt_)
+                bcnt=copy.deepcopy(bcnt_)
+                type_=copy.deepcopy(type__)
+                swid=copy.deepcopy(swid_)
+                dist=copy.deepcopy(f_dist)
+                
+                h_e=copy.deepcopy(h_e_)
+                cnt_e=copy.deepcopy(cnt_e_)
+                bcnt_e=copy.deepcopy(bcnt_e_)
+                swid_e=copy.deepcopy(swid_e_)
+                dist_e=copy.deepcopy(ef_dist)
+
+                try:
+                    remove_dup(hash_res, cnt, bcnt, type_, swid, dist)
+                    print("Before: %d " %len(hash_res[1]))
+                    save_info(hash_res, cnt, bcnt, type_, swid, 3, sw_num, dist, fname_) 
+                    print("After: %d " %len(hash_res[1]))
+
+                    remove_dup(h_e, cnt_e, bcnt_e, [], swid_e, dist_e)
+                    h_exp=[]
+                    cnt_exp=[]
+                    bcnt_exp=[]
+                    dist_exp=[]
+                    for i in range(sw_num):
+                        h_exp.append([])
+                        cnt_exp.append([])
+                        dist_exp.append([])
+                        for j in range(sw_num):
+                            h_exp[i].append([])
+                            cnt_exp[i].append([])
+                            dist_exp[i].append([])
+
+                    for i, v in enumerate(h_e):
+                        for idx, item in enumerate(v):
+                                index=swid_e[i][idx]
+                                h_exp[i][index].append(h_e[i][idx])
+                                cnt_exp[i][index].append(cnt_e[i][idx])
+                                dist_exp[i][index].append(dist_e[i][idx])
+
+                    for ij in range(sw_num): 
+                        with open(fname_+"Report/h_"+str(ij)+".txt", "w") as f:
+                            for i in range(sw_num):
+                                f.write("%d:\n" % i)
+                                tmp=[str(j) for j in h_exp[ij][i]]
+                                f.write(' '.join(tmp))
+                                f.write("\n\n")
+                        f.close()
+                        with open(fname_+"Report/c_"+str(ij)+".txt", "w") as f:
+                            for i in range(sw_num):
+                                f.write("%d:\n" % i)
+                                tmp=[str(j) for j in cnt_exp[ij][i]]
+                                f.write(' '.join(tmp))
+                                f.write("\n\n")
+                        f.close()
+                        with open(fname_+"Report/d_"+str(ij)+".txt", "w") as f:
+                            for i in range(sw_num):
+                                f.write("%d:\n" % i)
+                                for k in range(len(dist_exp[ij][i])):
+                                    tmp=[str(j) for j in dist_exp[ij][i][k]]
+                                    f.write(' '.join(tmp))
+                                    f.write("\n")
+                        f.close()
+
+                except:
+                        print("Err!")
+                        pass
 
     except KeyboardInterrupt:
         print(" Shutting down.")

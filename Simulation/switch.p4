@@ -3,7 +3,7 @@
 #include <core.p4>
 #include <v1model.p4>
 
-#include "headers.p4"
+#include "./utils/headers.p4"
 
 
 /*************************************************************************

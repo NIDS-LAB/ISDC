@@ -19,7 +19,7 @@ const bit<8> REST = 15;
 const bit<32> LIST_SIZE=9287; 
 const bit<32> MLIST_SIZE=1024; 
 
-const bit<32> QUEUE_SIZE=1024;
+const bit<32> QUEUE_SIZE=2048;
 
 /* In our running example, we will use QL=4 */
 const bit<8> BIN_WIDTH_SHIFT = 4 ; 
