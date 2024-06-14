@@ -58,5 +58,5 @@ First, we need to install the P4 Mininet environment. The simplest and quickest 
      This will save the switch data into `result` directory.
 6. **Model Training:**
    - Given the collected data, you can further leverage the Flower Framework for training a global model using the collected data.
-   - First, you need to label the collected data and create the require format for the training process. We have already processed this data and placed it in the [ML](https://github.com/NIDS-LAB/ISDC/tree/main/ML) folder.
+   - First, you need to label the collected data and create the required format for the training process. We have already processed this data and placed it in the [ML](https://github.com/NIDS-LAB/ISDC/tree/main/ML) folder.
    - For model training, please refer to `FL.ipynb` in the directory.
