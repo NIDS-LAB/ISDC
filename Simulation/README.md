@@ -25,7 +25,7 @@ First, we need to install the P4 Mininet environment. The simplest and quickest 
 ### To run the simulation:
 
 1. **Copy Files:** 
-   - Copy all files from the [miscellaneous](https://github.com/NIDS-LAB/ISDC/tree/main/Simulation/example/miscellaneous) directory to the [software](https://github.com/NIDS-LAB/ISDC/tree/main/Software) directory. These files contain script and required informaiton to run the small-scale experiment. 
+   - Copy all files from the [miscellaneous](https://github.com/NIDS-LAB/ISDC/tree/main/Simulation/example/miscellaneous) directory to the [Simulation](https://github.com/NIDS-LAB/ISDC/tree/main/Simulation) directory. These files contain script and required informaiton to run the small-scale experiment. 
    - Copy the ASN topology, our smallest topology, to the same directory.
 
 2. **Compile Code:** 
