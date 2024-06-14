@@ -37,7 +37,7 @@ First, we need to install the P4 Mininet environment. The simplest and quickest 
      $sudo ./controller -n 18
      ```
    - Wait a few moments until the NOC of each switch attaches to the data plane. This is confirmed when all switches successfully announce their listening status.
-   - You should also be able to see the `Command:` prompt in the terminal, which can be used to drop the collected data by switches.
+   - You should also be able to see the `Command:` prompt in the terminal, which can be used to export the collected data by switches.
 
 4. **Configure Switch Routing:** 
    - Configure the switches’ routing by typing:
