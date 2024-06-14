@@ -141,7 +141,7 @@ def main(sw_num, write, read, poly, flush):
                         f.write('\n')
             f.close()
         if (write):
-            with open("path.json", "r") as f:
+            with open("route.txt", "r") as f:
                 rules=[]
                 si=-1
                 port=0
