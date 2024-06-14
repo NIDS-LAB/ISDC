@@ -18,7 +18,7 @@
 After downloading the data, you need to prepare it for the simulation environment. This involves dividing the PCAP file into multiple pieces for each node’s generator and mapping the IP addresses from these data to the simulation settings. You can fine a preprocssed PCAP files in [here](https://github.com/NIDS-LAB/ISDC/tree/main/Simulation/example/pcap).
 
 ## Installation
-First, we need to install the P4 Mininet environment. The simplest and quickest way to install is by using the script [install-p4dev-v5.sh](https://github.com/jafingerhut/p4-guide/blob/master/bin/install-p4dev-v5.sh), provided by the p4-guide GitHub repository. After you are done with the installation, make sure you also have Tcpreplay to replay the traffic. To install Flower, you can refer [here](https://flower.ai/docs/framework/how-to-install-flower.html).
+First, we need to install the P4 Mininet environment. The simplest and quickest way to install is by using the script [install-p4dev-v5.sh](https://github.com/jafingerhut/p4-guide/blob/master/bin/install-p4dev-v5.sh), provided by the p4-guide GitHub repository. After you are done with the installation, make sure you also have Tcpreplay to replay the traffic. To install Flower for Fedetated Learning, you can refer [here](https://flower.ai/docs/framework/how-to-install-flower.html).
 
 ## DEMO
 
