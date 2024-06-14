@@ -49,7 +49,7 @@ First, we need to install the P4 Mininet environment. The simplest and quickest 
      $sudo bash send.sh
      ```
    - Once the traffic generation is finished, the simulation is done and the data is collected in the control plane of switches.
-   - You can export the collected data by typing:
+   - You can export the collected data by typing (make sure the contorl plane is done with processing of data by tracking process CPU usage):
      ```sh
      Command: Snap
      ```
