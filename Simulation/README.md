@@ -11,6 +11,8 @@
 - [Flower v1.6.0](https://flower.ai/)
 - [TcpReplay v4.3.4](https://tcpreplay.appneta.com/)
 - [Python3.8-3.10](https://www.python.org/downloads/)
+- [P4-utils v0.0](https://github.com/nsg-ethz/p4-utils)
+- [Ubuntu 20.04](https://releases.ubuntu.com/focal/)
 
 ## Traffic Dataset
 - Attack traffic captures of covert channel available [here](https://turbina.gsd.inesc-id.pt/resources/mpt_detection/)
@@ -20,7 +22,12 @@
 After downloading the data, you need to prepare it for the simulation environment. This involves dividing the PCAP file into multiple pieces for each node’s generator and mapping the IP addresses from these data to the simulation settings. You can find a preprocessed PCAP files in [here](https://github.com/NIDS-LAB/ISDC/tree/main/Simulation/example/pcap).
 
 ## Installation
-First, we need to install the P4 Mininet environment. The simplest and quickest way to install is by using the script [install-p4dev-v5.sh](https://github.com/jafingerhut/p4-guide/blob/master/bin/install-p4dev-v5.sh), provided by the p4-guide GitHub repository. After you are done with the installation, make sure you also have TcpReplay to replay the traffic. To install Flower for Fedetated Learning, you can refer [here](https://flower.ai/docs/framework/how-to-install-flower.html).
+First, we need to install the P4 Mininet environment. 
+- The simplest and quickest way to install is by using the script [install-p4dev-v5.sh](https://github.com/jafingerhut/p4-guide/blob/master/bin/install-p4dev-v5.sh); for detailed installation instructions, refer to [this troubleshooting guide](https://github.com/jafingerhut/p4-guide/blob/master/bin/README-install-troubleshooting.md).
+- Once the installation is complete, install [P4-utils](https://github.com/nsg-ethz/p4-utils).
+- Ensure you have the correct path set up to access `p4.tmp` to avoid any missing module errors.
+- Install TcpReplay for traffic replay capabilities.
+- For installing Flower for Federated Learning, refer to the installation guide [here](https://flower.ai/docs/framework/how-to-install-flower.html).
 
 ## DEMO
 
@@ -36,7 +43,7 @@ First, we need to install the P4 Mininet environment. The simplest and quickest 
 3. **Launch the Controller:** 
    - To launch the control plane of the switch and attach it to the switches’ data plane, type:
      ```sh
-     $sudo ./controller -n 18
+     $sudo ./controller.py -n 18
      ```
    - Wait a few moments until the NOC of each switch attaches to the data plane. This is confirmed when all switches successfully announce their listening status.
    - You should also be able to see the `Command:` prompt in the terminal, which can be used to export the collected data by switches.
