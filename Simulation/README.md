@@ -25,7 +25,7 @@ After downloading the data, you need to prepare it for the simulation environmen
 First, we need to install the P4 Mininet environment. 
 - The simplest and quickest way to install is by using the script [install-p4dev-v5.sh](https://github.com/jafingerhut/p4-guide/blob/master/bin/install-p4dev-v5.sh); for detailed installation instructions, refer to [this troubleshooting guide](https://github.com/jafingerhut/p4-guide/blob/master/bin/README-install-troubleshooting.md).
 - Once the installation is complete, install [P4-utils](https://github.com/nsg-ethz/p4-utils).
-- Ensure you have the correct path set up to access `p4.tmp` to avoid any missing module errors.
+- Ensure you have the correct path set up to access `p4.tmp` to avoid any missing [module errors](https://github.com/p4lang/tutorials/issues/463).
 - Install TcpReplay for traffic replay capabilities.
 - For installing Flower for Federated Learning, refer to the installation guide [here](https://flower.ai/docs/framework/how-to-install-flower.html).
 
