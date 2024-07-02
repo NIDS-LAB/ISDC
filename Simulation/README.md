@@ -65,6 +65,30 @@ First, we need to install the P4 Mininet environment.
      Command: Snap
      ```
      This will save the switch data into `result` directory.
+     ```
+      result/
+      ├── flowc_exp.txt // This file contains the size of collected flows
+      ├── flowd_exp.txt // This file contains collected features for the flows, have been sorted accordingly
+      ├── flowh_exp.txt // FlowID of collected flows is stored in this file
+     ...
+      ├── flowc_tst.txt // Optional: For debugging purposes (FI)
+      ├── flowh_tst.txt
+      ├── flowd_tst.txt
+      ├── flowh_evic.txt // Optional: For debugging purposes (task migration)
+      ├── flowd_evic.txt
+      ├── flowc_evic.txt
+      └── Report // Optional: For debugging purposes (data migration)
+          ├── c_0.txt
+          ├── c_10.txt
+          ......
+          ├── d_0.txt
+          ├── d_10.txt
+          ├── d_11.txt
+          ......
+          ├── h_0.txt
+          ├── h_10.txt
+          .....
+     ```
 6. **Model Training:**
    - Given the collected data, you can further leverage the Flower Framework to train a global model using the collected data.
    - First, you need to label the collected data and create the required format for the training process. We have already processed this data and placed it in the [ML](https://github.com/NIDS-LAB/ISDC/tree/main/ML) folder.
