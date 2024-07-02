@@ -6,7 +6,7 @@ cnt=0
 while read line
 do
 	iface="s"$i"-eth"$line
-	tcpreplay -i $iface -K --loop 1 --pps 80 "../pcap/"$j.pcap &
+	tcpreplay -i $iface -K --loop 1 --pps 80 " ./example/pcap"$j.pcap &
 
 	i=$(($i + 1))
 	j=$(($j + 1))
