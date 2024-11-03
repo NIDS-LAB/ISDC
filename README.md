@@ -1,5 +1,5 @@
 # Enhancing Network Attack Detection with Distributed and In-Network Data Collection System
-[USENIX Security '24]
+[USENIX Security '24](https://www.usenix.org/conference/usenixsecurity24/presentation/mirnajafizadeh)
 
 ## Introduction
 The collection of network data poses a significant challenge for machine/deep learning-driven network defense systems in terms of data avaiability and communication bandwidth. This work proposes a new paradigm, namely In-network Serverless Data Collection (ISDC), to eliminate the bottleneck between network infrastructure (where data is generated) and security application servers (where data is consumed). As shown, ISDC is a middleware that resides in distributed switches' network operating system (NOS), forming a data layer, with the main mission that eliminating the bottleneck between the infrastructure layer and application layer. Interacting with its data plane functions, ISDC is responsible for task allocation and migration for effective and efficient utilization of in-network resources. Meanwhile, ISDC performs serverless data migration and aggregation for data integrity to serve as a reliable and distributed data source for ML/DL-based security applications. 
